@@ -1,7 +1,7 @@
-from flaskblog.models import User, Post
+from droneproject.models import User, Post
 from flask import request, Flask, render_template, url_for, flash, redirect
-from flaskblog.forms import PostForm,RegisterationForm, LoginForm, UpdateAccountForm
-from flaskblog import app, db, bcrypt
+from droneproject.forms import PostForm,RegisterationForm, LoginForm, UpdateAccountForm
+from droneproject import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 import os
@@ -88,9 +88,9 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
-@app.route("/post/new", methods=["POST", "GET"])
+@app.route("/appointments/new", methods=["POST", "GET"])
 @login_required
-def new_post():
+def schedule():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)

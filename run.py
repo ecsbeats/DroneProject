@@ -1,4 +1,4 @@
-from flaskblog import app
+from droneproject import app
 from colorama import init
 init()
 if __name__ == '__main__':

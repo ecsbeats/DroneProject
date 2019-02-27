@@ -1,5 +1,5 @@
-from flaskblog import db, login_manager
-from datetime import datetime
+from droneproject import db, login_manager
+from datetime import datetime, date, time
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -12,17 +12,19 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    appointments = db.relationship('Appointment', backref='request', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
-
-class Post(db.Model):
+class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    doctor = db.Column(db.String(100), nullable=False)
+    date_requested = db.Column(db.DateTime, nullable=False, default=date)
+    time_requested = db.Column(db.DateTime, nullable=False, default=time)
+    reason = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Appointment('{self.doctor}', '{self.date_requested}')"

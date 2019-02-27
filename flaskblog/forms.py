@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flaskblog.models import User
+from droneproject.models import User
 from flask_login import current_user
 from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -62,7 +62,8 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different email.')
 
 
-class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Post')
+class AppointmentForm(FlaskForm):
+    location = SelectField('Location', validators=[DataRequired()])
+    doctor = SelectField('Doctor', validators=[DataRequired()])
+    reason = TextAreaField('Reason', validators=[DataRequired()])
+    submit = SubmitField('Submit')
